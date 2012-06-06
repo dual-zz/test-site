@@ -1,0 +1,118 @@
+/* for each
+ -----------------------------------------------------------------------------*/
+* {
+   margin: 0;
+   padding: 0;
+}
+
+header, nav, section, article, aside, footer {
+   display: block;
+}
+
+html {
+   height: 100%;
+}
+
+body {
+   height: 100%;
+   background-image: url("http://subtlepatterns.com/patterns/batthern.png");
+   /* font: 12px/18px Arial, Tahoma, Verdana, sans-serif; */
+   width: 100%;
+}
+
+a:hover {
+   text-decoration: none;
+}
+
+p {
+   margin: 0 0 18px
+}
+
+img {
+   border: none;
+}
+
+input {
+   vertical-align: middle;
+}
+
+#wrapper {
+   height: 100%;
+   width: 1024px;
+   margin: 0 auto;
+}
+
+/* Header
+ -----------------------------------------------------------------------------*/
+#header {
+   height: 100px;
+   background: rgba(128,128,128, 0.5);;
+}
+
+/* Middle
+ -----------------------------------------------------------------------------*/
+#middle {
+   border-left: 200px solid rgba(128,128,128, 0.4);
+   border-right: 200px solid rgba(128,128,128, 0.4);
+   min-height: 100%;
+   position: relative;
+}
+
+#middle:after {
+   content: '.';
+   display: block;
+   clear: both;
+   visibility: hidden;
+   height: 0;
+}
+
+#container {
+   width: 100%;
+   float: left;
+   overflow: hidden;
+   margin-right: -100%;
+}
+
+#content {
+   padding: 0 20px;
+}
+
+/* Sidebar Left
+ -----------------------------------------------------------------------------*/
+#sideLeft {
+   float: left;
+   width: 200px;
+   position: relative;
+   left: -200px;
+   /* background-color: rgba(128,128,128, 0.4);
+    -webkit-box-shadow:5px 10px 4px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255,
+    * 255, 0.8) inset;
+    border-radius: 20px;
+    border: 4px solid black;
+    padding: 3px; */
+}
+
+/* Sidebar Right
+ -----------------------------------------------------------------------------*/
+#sideRight {
+   float: right;
+   margin-right: -200px;
+   width: 200px;
+   position: relative;
+   /* background-color: rgba(128,128,128, 0.4);
+    -webkit-box-shadow:5px 10px 4px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255,
+    * 255, 0.8) inset;
+    border-radius: 20px;
+    border: 4px solid black;
+    padding: 3px; */
+}
+
+/* Footer
+ -----------------------------------------------------------------------------*/
+#footer {
+   height: 20px;
+   width: 100%;
+   background: #BFF08E;
+   position: absolute;
+   bottom: 0;
+}
