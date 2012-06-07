@@ -3,7 +3,7 @@
    <a><b>Авторизация</b></a><br><br />
    <!--<form action="<php echo $_SERVER['PHP_SELF'];?>" method="POST">-->
    <form action="./login" method="POST">
-      <input type="hidden" name="act" value="1">
+      <input type="hidden" name="do_auth" value="1">
          Логин: 
          <input type = "text" name = "login" required>
          Пароль: 
@@ -15,7 +15,7 @@
          <tr>
             <td>
                <label>
-                  <a>Чужой компьютер :<input type="checkbox" name="checkme" /></a>
+                  <a>Чужой компьютер :<input type="checkbox" name="forgetme" /></a>
                </label>
                <input type="submit" value="Войти">
             </td>

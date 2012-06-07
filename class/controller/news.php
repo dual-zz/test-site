@@ -1,7 +1,9 @@
 <?php
 
-include('./class/model/news.php');
-include('./class/view/news.php');
+require './class/database/config.php';
+
+require './class/model/news.php';
+require './class/view/news.php';
 
 /**
  * News controller
