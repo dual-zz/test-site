@@ -1,9 +1,11 @@
 <?php
 
+require './class/model/site.php';
+
 /**
  * Login model
  */
-class login_mod {
+class login_mod extends site {
    
    public $do_auth;
    public $user;
@@ -35,7 +37,7 @@ class login_mod {
          
          if (!$STH->rowCount())
          {
-             return "Неверный логин";
+             throw new site("Неверный логин");
          }
          else if ($STH->rowCount() == 1)
          {
@@ -43,7 +45,7 @@ class login_mod {
             
             if ($row['pass'] != $this->pass)
             {
-                return "Неверный пароль";
+                throw new site("Неверный пароль");
             }
             else
             {
@@ -84,64 +86,28 @@ class login_mod {
                   }
                   else
                   {
-                      return "Произошла ошибка номер 665. Обратитесь к админестратору.";
+                      throw new site("Произошла ошибка номер 665. Обратитесь к админестратору.");
                   }
                }
             }
          }
          else
          {
-             return "Произошла ошибка номер 666. Обратитесь к админестратору.";
+             throw new site('Произошла ошибка номер 666. Обратитесь к админестратору.');
          }
       }
       catch(PDOException $e)
       {
-         die("Error: ".$e->getMessage());
+         throw new site($e->getMessage());
+      }
+      catch(site $ee)
+      {
+         throw $ee;
       }
       
       return 0;
    }
-
-   /**
-    * Проверка авторизованности
-    */
-   public function auth_check()
-   {
-      session_name('lowlogin');
-   
-      if (isset($_REQUEST[session_name()]))
-      {
-         session_start();
-         return 1;
-      }
-      else
-      {
-          return 0;
-      }
-   }
-   
-   /**
-    * Cookies check
-    */
-   public function cookcheck()
-   {
-      if (!isset($_COOKIE['cookcheck']) || isset($_GET['cook']))
-      {
-         if (!isset($_GET['cook']))
-         {
-            setcookie("cookcheck",  "1",  time() + (60 * 60 * 24 * 365 * 3),  "/");
-            header("Location: ".$_SERVER[PHP_SELF]."?cook");
-         }
-         else if (!isset($_COOKIE['cookcheck']))
-         {
-             return 0;
-         }
-         header("Location: ./login");
-      }
       
-      return 1;
-   }
-   
    /**
     * function to salt generate (hightlogin hash cryto)
     */
@@ -157,6 +123,5 @@ class login_mod {
       return $rand;
    }  
 }
-
 
 ?>

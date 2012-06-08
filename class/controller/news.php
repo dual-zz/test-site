@@ -21,14 +21,22 @@ class news_con {
    
    public function run()
    {
-      if ($this->model->auth_check())
+      try
       {
-         $this->view->print_in();
+         if ($this->model->auth_check())
+         {
+            $this->view->print_in();
+         }
+         else
+         {
+             $this->view->print_out();
+         }
       }
-      else
+      catch (Exception $ee)
       {
-          $this->view->print_out();
+         echo "Error: ".$ee->getMessage();
       }
+      
    }
 }
 
