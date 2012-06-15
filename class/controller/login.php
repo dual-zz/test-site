@@ -23,13 +23,17 @@ class login_con {
    {
       try
       {
+         $data['online'] = $this->model->auth_check();
+         
          if (!$this->model->cookcheck())
          {
-            $this->view->print_cookOff();
+            $data['error'] = '<h2>Для авторизации включите cookies в вашем браузере.</h2>';
+            $this->view->print_login($data);
+            //$this->view->print_cookOff();
          }
          else
          {
-            if ($this->model->auth_check())
+            if ($data['online'] == TRUE)
             {
                header('Location: ./news');
             }
@@ -41,20 +45,18 @@ class login_con {
                {
                   header('Location: ./news');
                }
-               else
-               {
-                   $this->view->print_loginErr($auth);
-               }
             }
             else
             {
-                $this->view->print_login();
+                $this->view->print_login($data);
             }
          }
       }
-      catch (site $ee)
+      catch (siteException $ee)
       {
-         $this->view->print_loginErr($ee->getMessage());
+         $data['error'] = $ee->getMessage();
+         $this->view->print_login($data);
+         //$this->view->print_loginErr($ee->getMessage());
       }
    }
 }

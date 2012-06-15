@@ -1,5 +1,10 @@
 <?php
 
+//require_once 'class/lib/Twig/My_Twig_Config.php';
+
+require_once 'class/lib/Twig/Autoloader.php';
+
+
 /**
  * News view
  */
@@ -7,8 +12,21 @@ class news_view {
 	
 	function __construct()
 	{
-		;
+      ;
 	}
+   
+   public function print_news($user)
+   {
+      Twig_Autoloader::register();
+      
+      $loader = new Twig_Loader_Filesystem(array('./html','./html/templates'));
+      $twig   = new Twig_Environment($loader, array(
+        'cache' => FALSE,
+      ));
+      
+      $user['title'] = 'News';
+      echo $twig->render('news.htm', $user);
+   }
    
    public function print_in()
    {

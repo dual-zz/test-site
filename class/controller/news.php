@@ -25,14 +25,17 @@ class news_con {
       {
          if ($this->model->auth_check())
          {
-            $this->view->print_in();
+            $data = $this->model->initUser();
+            $data['online'] = TRUE;
+            $this->view->print_news($data);
          }
          else
          {
-             $this->view->print_out();
+            $data['online'] = FALSE;
+            $this->view->print_news($data);
          }
       }
-      catch (Exception $ee)
+      catch (siteException $ee)
       {
          echo "Error: ".$ee->getMessage();
       }

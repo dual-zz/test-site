@@ -1,6 +1,6 @@
 <?php
 
-require './class/model/site.php';
+require_once './class/model/site.php';
 
 /**
  * News model

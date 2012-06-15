@@ -1,5 +1,7 @@
 <?php
 
+require_once 'class/lib/Twig/Autoloader.php';
+
 /**
  * Login view
  */
@@ -10,7 +12,20 @@ class login_view {
       ;
    }
    
-   public function print_login()
+   public function print_login($user)
+   {
+      Twig_Autoloader::register();
+      
+      $loader = new Twig_Loader_Filesystem(array('./html','./html/templates'));
+      $twig   = new Twig_Environment($loader, array(
+        'cache' => FALSE,
+      ));
+      
+      $user['title'] = 'Login';
+      echo $twig->render('login.htm', $user);
+   }
+   
+   public function print_login_()
    {
       include("./html/pattern/head_0.htm");
       include("./html/pattern/head_1.htm");

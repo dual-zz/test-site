@@ -37,7 +37,7 @@ class login_mod extends site {
          
          if (!$STH->rowCount())
          {
-             throw new site("Неверный логин");
+             throw new siteException("Неверный логин");
          }
          else if ($STH->rowCount() == 1)
          {
@@ -45,13 +45,13 @@ class login_mod extends site {
             
             if ($row['pass'] != $this->pass)
             {
-                throw new site("Неверный пароль");
+                throw new siteException("Неверный пароль");
             }
             else
             {
                session_name('lowlogin');
                session_start();
-               $_SESSION['user'] = $row;
+               $_SESSION['user_id'] = $row['id'];
                $this->user = $row;
                
                if ($_REQUEST['forgetme'] != 'on')
@@ -86,21 +86,21 @@ class login_mod extends site {
                   }
                   else
                   {
-                      throw new site("Произошла ошибка номер 665. Обратитесь к админестратору.");
+                      throw new siteException("Произошла ошибка номер 665. Обратитесь к админестратору.");
                   }
                }
             }
          }
          else
          {
-             throw new site('Произошла ошибка номер 666. Обратитесь к админестратору.');
+             throw new siteException('Произошла ошибка номер 666. Обратитесь к админестратору.');
          }
       }
       catch(PDOException $e)
       {
-         throw new site($e->getMessage());
+         throw new siteException($e->getMessage());
       }
-      catch(site $ee)
+      catch(siteException $ee)
       {
          throw $ee;
       }

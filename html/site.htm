@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta charset="utf-8" />
+   <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+   <title>{{ title }} - Ultima Thule</title>
+   <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen, projection" />
+</head>
+<body>
+<div id="wrapper">
+   <section id="middle">      
+      <div id="container">
+         <header id="header">
+         	{% block head %}
+         	{% if online == true %}
+         	<br />
+			Здравствуйте: {{ login }}
+			<table width="30%">
+			   <tr>
+			      <td>
+			         <a href=".">Новости</a>
+			      </td>
+			      <td>
+			         <a href="./profile">Профиль</a>
+			      </td>
+			     <td>
+			        <a href="./logout">Выход</a>
+			     </td>
+			   </tr>
+			</table>
+         	{% else %}
+         	<br />
+			<table width="30%">
+			   <tr>
+			      <td>
+			         <a href=".">Новости</a>
+			      </td>
+			      <td>
+			         <a href="./login">Вход</a>
+			      </td>
+			   </tr>
+			</table>
+			{% endif %}
+         	{% endblock head %}
+         </header>
+         <div id="content">
+         	{% block content %}
+         	{% endblock content %}
+         </div><!-- #content-->
+
+      </div><!-- #container-->
+
+      <aside id="sideLeft">
+         апавомсикуерми
+      </aside><!-- #sideLeft -->
+
+      <aside id="sideRight">
+         апавомсикуерми
+      </aside><!-- #sideRight -->
+
+      <footer id="footer">
+         Sindikat (с)
+      </footer><!-- #footer -->
+
+   </section><!-- #middle-->
+
+</div><!-- #wrapper -->
+
+</body>
+</html>
