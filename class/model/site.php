@@ -12,7 +12,7 @@
 class siteException extends Exception { }
 
 
-class site extends siteException {
+class site {//extends siteException {
    
    /**
     * Autorization check
@@ -38,7 +38,7 @@ class site extends siteException {
             $STH = $DBH->prepare("SELECT id FROM `session` WHERE hash = :userHash");
             $STH->bindValue(':userHash',$userHash);
             $STH->execute();
-            SQL_Error($DBH);
+            SQL_Error($STH);
             
             if ($STH->rowCount() == 1)
             {
@@ -112,7 +112,7 @@ class site extends siteException {
          $STH = $DBH->prepare("SELECT * FROM `user` WHERE id = :id");
          $STH->bindValue(':id',$id);
          $STH->execute();
-         SQL_Error($DBH);
+         SQL_Error($STH);
           
          if (!$STH->rowCount())
          {

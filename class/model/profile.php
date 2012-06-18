@@ -5,7 +5,7 @@ require './class/model/site.php';
 /**
  * Login model
  */
-class profile_mod extends site {
+class Profile_Model extends site {
    
    public $edit;
    

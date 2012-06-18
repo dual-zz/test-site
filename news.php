@@ -2,7 +2,7 @@
 
 include("./class/controller/news.php");
 
-$news = new news_con;
+$news = new News_Controller;
 
 $news->run();
 

@@ -7,13 +7,12 @@ $PDO_UTF8 = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES `utf8`');
 define('GET_NAME', 1);
  
 
-function SQL_Error($DBH)
+function SQL_Error($STH)
 {
-	$error_array = $DBH->errorInfo();
- 
-   if ($DBH->errorCode() != 00000)
+   if ($STH->errorCode() != 00000)
    {
-      die("SQL ошибка: " . $error_array[2] . '<br /><br />');
+      $error_array = $STH->errorInfo();
+      throw new siteException("SQL ошибка: " . $error_array[2] . '<br /><br />');
    }
 }
 

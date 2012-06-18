@@ -5,7 +5,7 @@ require_once './class/model/site.php';
 /**
  * News model
  */
-class news_mod extends site {
+class News_Model extends site {
    
    function __construct()
    {

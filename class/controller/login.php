@@ -1,22 +1,22 @@
 <?php
 
-require './class/database/config.php';
+require_once './class/database/config.php';
 
-require './class/model/login.php';
-require './class/view/login.php';
+require_once './class/model/login.php';
+require_once './class/view/login.php';
 
 /**
  * Login controller
  */
-class login_con {
+class Login_Controller {
 
    private $model;
    private $view;
    
    function __construct()
    {
-      $this->model = new login_mod;
-      $this->view  = new login_view;
+      $this->model = new Login_Model;
+      $this->view  = new Login_View;
    }
    
    public function run()

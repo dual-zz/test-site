@@ -1,7 +1,7 @@
 <?php
-include("./class/controller/login.php");
+include_once("./class/controller/login.php");
 
-$login = new login_con;
+$login = new Login_Controller;
 
 $login->run();
 ?>

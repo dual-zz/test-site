@@ -8,7 +8,7 @@ require './class/view/profile.php';
 /**
  * Profile controller
  */
-class profile_con {
+class Profile_Controller {
 
    /*
    private $model;

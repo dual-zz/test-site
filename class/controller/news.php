@@ -8,15 +8,15 @@ require './class/view/news.php';
 /**
  * News controller
  */
-class news_con {
+class News_Controller {
 
 	private $model;
    private $view;
    
 	function __construct()
 	{
-      $this->model = new news_mod;
-      $this->view  = new news_view;
+      $this->model = new News_Model;
+      $this->view  = new News_View;
 	}
    
    public function run()

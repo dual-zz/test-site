@@ -4,7 +4,7 @@ require './class/model/site.php';
 /**
  * Login view
  */
-class profile_view extends site {
+class Profile_View extends site {
    
 }
 ?>

@@ -1,11 +1,11 @@
 <?php
 
-require './class/model/site.php';
+require_once './class/model/site.php';
 
 /**
  * Login model
  */
-class login_mod extends site {
+class Login_Model extends site {
    
    public $do_auth;
    public $user;
@@ -33,7 +33,7 @@ class login_mod extends site {
          $STH = $DBH->prepare("SELECT * FROM `user` WHERE login = :login");
          $STH->bindValue(':login',$this->login);
          $STH->execute();
-         SQL_Error($DBH);
+         SQL_Error($STH);
          
          if (!$STH->rowCount())
          {
@@ -66,7 +66,7 @@ class login_mod extends site {
                   $STH1 = $DBH->prepare("SELECT * FROM `session` WHERE id = :id");
                   $STH1->bindValue(':id',$this->user['id']);
                   $STH1->execute();
-                  SQL_Error($DBH);
+                  SQL_Error($STH1);
                   
                   if (!$STH1->rowCount())
                   {
@@ -82,7 +82,7 @@ class login_mod extends site {
                      $STH3->bindValue(':id',$this->user['id']);
                      $STH3->bindValue(':hash',$hash);
                      $STH3->execute();
-                     SQL_Error($DBH);
+                     SQL_Error($STH3);
                   }
                   else
                   {
@@ -99,11 +99,11 @@ class login_mod extends site {
       catch(PDOException $e)
       {
          throw new siteException($e->getMessage());
-      }
+      }/*
       catch(siteException $ee)
       {
          throw $ee;
-      }
+      }*/
       
       return 0;
    }

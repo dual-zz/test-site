@@ -19,29 +19,9 @@ try
    //$db->prepare("SELECT id FROM session");
    $STH = $db->prepare("SELECT `name` FROM `user_info` WHERE id = 1");
    $STH->execute();
-   print_r($STH->fetch());
-   echo "--------\n";
+   SQL_Error($STH);
    
-   $loader = new Twig_Loader_String();
-   $twig = new Twig_Environment($loader);
-    
-   $template = $twig->loadTemplate('Привет {{ name }}!');
-    
-   $template->display(array('name' => 'Миша'));
-   
-   echo "\n--------\n";
-   
-   echo $_SESSION['qqq']['www'];
-   $_SESSION['qqq']['www'] = '=***';
-   echo $_SESSION['qqq']['www'];
-      print_r($_SESSION['qqq']);
-   echo "--------\n";
-   $que = $db->query("SELECT * FROM `user_info`");
-   echo $que->rowCount();
-   
-   SQL_Error($db);
-   
-   while ($row = $que->fetch())
+   while ($row = $STH->fetch())
    {
       print_r($row);
       if ($row['id'] == 50)
@@ -56,13 +36,6 @@ catch (PDOException $ee)
    echo $ee->getMessage();
    echo "root problen";
 }
-
-print_r($mass);
-
-$_SESSION['nya'] = $mass;
-print_r($_SESSION['nya']);
-echo $mass['login'] . $mass['pass'] . '/n' . $_SESSION['nya']['id'];
-
 
 
 ?>
