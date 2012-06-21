@@ -9,54 +9,46 @@ require_once './class/view/login.php';
  * Login controller
  */
 class Login_Controller {
-
-   private $model;
-   private $view;
-   
-   function __construct()
-   {
-      $this->model = new Login_Model;
-      $this->view  = new Login_View;
-   }
    
    public function run()
    {
       try
       {
-         $data['online'] = $this->model->auth_check();
+         $model = new Login_Model;
+         $view  = new Login_View;
+         $data;
          
-         if (!$this->model->cookcheck())
+         $data['online'] = $model->auth_check();
+         
+         if (!$model->cookcheck())
          {
-            $data['error'] = '<h2>Для авторизации включите cookies в вашем браузере.</h2>';
-            $this->view->print_login($data);
-            //$this->view->print_cookOff();
+            $data['error'] = 'Для какой-либо активности на сайте, включите cookies в вашем браузере.';
+            $view->print_login($data);
+         }
+         else if ($data['online'] == TRUE)
+         {
+            header('Location: ./news');
+            die();
+         } 
+         else if ($model->do_auth)
+         {
+            $STH = new PDOStatement;
+            $auth = $model->sign_in($STH); 
+            if (!$auth)
+            {
+               header('Location: ./news');
+               die();
+            }
          }
          else
          {
-            if ($data['online'] == TRUE)
-            {
-               header('Location: ./news');
-            }
-            else if ($this->model->do_auth)
-            {
-               $STH = new PDOStatement;
-               $auth = $this->model->sign_in($STH); 
-               if (!$auth)
-               {
-                  header('Location: ./news');
-               }
-            }
-            else
-            {
-                $this->view->print_login($data);
-            }
+             $view->print_login($data);
          }
       }
       catch (siteException $ee)
       {
          $data['error'] = $ee->getMessage();
-         $this->view->print_login($data);
-         //$this->view->print_loginErr($ee->getMessage());
+         $view->print_login($data);
       }
    }
 }

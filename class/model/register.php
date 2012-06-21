@@ -6,7 +6,7 @@ require_once './class/model/login.php';
 /**
  * Register model
  */
-class Register_Model extends Login_Model {
+class Register_Model extends Site_Model {
    
    public $do_reg;
    public $user;
@@ -67,7 +67,7 @@ class Register_Model extends Login_Model {
    {
       try
       {
-         $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
+         $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,eval(PDO_UTF));
          $STH = $DBH->prepare("SELECT * FROM `user` WHERE login = :login");
          $STH->bindValue(':login',$this->login);
          $STH->execute();
@@ -109,7 +109,7 @@ class Register_Model extends Login_Model {
          {
             try
             {
-               $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
+               $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,eval(PDO_UTF));
                $STH = $DBH->prepare("INSERT INTO `user` (login,email,pass)
                                      VALUES (:login,:email,:pass)");
                $STH->bindValue(':login',$this->login);

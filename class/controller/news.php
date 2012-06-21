@@ -10,29 +10,23 @@ require './class/view/news.php';
  */
 class News_Controller {
 
-	private $model;
-   private $view;
-   
-	function __construct()
-	{
-      $this->model = new News_Model;
-      $this->view  = new News_View;
-	}
-   
    public function run()
    {
       try
       {
-         if ($this->model->auth_check())
+         $model = new News_Model;
+         $view  = new News_View;
+         
+         if ($model->auth_check(FALSE))
          {
-            $data = $this->model->initUser();
+            $data['user'] = $model->initUser();
             $data['online'] = TRUE;
-            $this->view->print_news($data);
+            $view->print_news($data);
          }
          else
          {
             $data['online'] = FALSE;
-            $this->view->print_news($data);
+            $view->print_news($data);
          }
       }
       catch (siteException $ee)

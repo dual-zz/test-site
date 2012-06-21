@@ -10,6 +10,9 @@ AddCharset utf-8 *
 
 
 RewriteEngine On
+
+RewriteRule ^id([0-9]+)$ profile.php?id=$1&%{QUERY_STRING}
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)?$ $1.php [L,QSA]
+RewriteRule ^(.+)?$ $1.php [QSA]

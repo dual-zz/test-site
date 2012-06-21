@@ -6,21 +6,27 @@
  * @author  SergeShaw@gmail.com
  */
 
+
 /**
  * Exception class
  */
 class siteException extends Exception { }
 
 
-class site {//extends siteException {
+class Site_Model {
    
    /**
     * Autorization check
     *
     * @return bool
     */
-   public function auth_check()
+   public function auth_check($auto_cook_chek = TRUE)
    {
+      if ($auto_cook_chek == TRUE)
+      {
+         $this->cookcheck();
+      }
+      
       session_name('lowlogin');
    
       if (isset($_REQUEST[session_name()]))
@@ -34,7 +40,7 @@ class site {//extends siteException {
          {
             $userHash = md5($_SERVER['HTTP_USER_AGENT'] . $_COOKIE['highlogin']);
 
-            $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
+            $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,eval(PDO_UTF));
             $STH = $DBH->prepare("SELECT id FROM `session` WHERE hash = :userHash");
             $STH->bindValue(':userHash',$userHash);
             $STH->execute();
@@ -77,13 +83,19 @@ class site {//extends siteException {
          if (!isset($_GET['cook']))
          {
             setcookie("cookcheck",  "1",  time() + (60 * 60 * 24 * 365 * 3),  "/");
-            header("Location: ".$_SERVER[PHP_SELF]."?cook");
+            //header("Location: .".substr($_SERVER[PHP_SELF], 0,-4)."?cook");
+            header('Location: ./login?cook');
+            die();
          }
          else if (!isset($_COOKIE['cookcheck']))
          {
-             return 0;
+            return 0;
          }
-         header("Location: ./".substr($_SERVER[PHP_SELF], 0,-4));
+         else 
+         {
+            header("Location: .".substr($_SERVER[PHP_SELF], 0,-4));
+            die();
+         }
       }
       
       return 1;
@@ -94,7 +106,7 @@ class site {//extends siteException {
     *
     * @return array
     */
-   function initUser($lvl = NULL, $id = NULL) 
+   function initUser($id = NULL) 
    {
       if (is_null($id) && (!isset($_SESSION['user_id'])))
       {
@@ -105,10 +117,9 @@ class site {//extends siteException {
          $id = $_SESSION['user_id'];
       }
       
-      $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
-      
-      if (is_null($lvl))
+      try
       {
+         $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,eval(PDO_UTF));
          $STH = $DBH->prepare("SELECT * FROM `user` WHERE id = :id");
          $STH->bindValue(':id',$id);
          $STH->execute();
@@ -120,82 +131,17 @@ class site {//extends siteException {
          }
          else if ($STH->rowCount() == 1)
          {
-            $user_info = $STH->fetch();
-            return $user_info;
+            $user = $STH->fetch();
+            return $user;
          }
          else
          {
             throw new siteException('Произошла ошибка номер 666. Обратитесь к админестратору.');
          }
       }
-      
-      if (!is_null($id))
+      catch (PDOException $e)
       {
-         if (!isset($_SESSION['user_id']))
-         {
-             
-         }
-         else
-         {            
-            if (is_null($lvl))
-            {
-               $STH = $DBH->prepare("SELECT * FROM `user_info` WHERE id = :id");
-            }
-            else if ($lvl == GET_NAME)
-            {
-                $STH = $DBH->prepare("SELECT (`id`,`name`) FROM `user_info` WHERE id = :id");
-            }
-            
-            $STH->bindValue(':id',$_SESSION['user_id']);
-            $STH->execute();
-            SQL_Error($DBH);
-            
-            if (!$STH->rowCount())
-            {
-                throw new siteException("Error: не найдено соответствие по id.");
-            }
-            else if ($STH->rowCount() == 1)
-            {
-               $user = $STH->fetch();
-               return $user;
-            }
-            else
-            {
-                throw new siteException('Произошла ошибка номер 666. Обратитесь к админестратору.');
-            }
-         }
-      }
-      else 
-      {
-            $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
-            
-            if (is_null($lvl))
-            {
-               $STH = $DBH->prepare("SELECT * FROM `user` WHERE id = :id");
-            }
-            else if ($lvl == GET_NAME)
-            {
-                $STH = $DBH->prepare("SELECT (`id`,`name`) FROM `user_info` WHERE id = :id");
-            }
-            
-            $STH->bindValue(':id',$id);
-            $STH->execute();
-            SQL_Error($DBH);
-            
-            if (!$STH->rowCount())
-            {
-                throw new siteException("Error: не найдено соответствие по id.");
-            }
-            else if ($STH->rowCount() == 1)
-            {
-               $_SESSION['user_id'] = $id;
-               $user = $STH->fetch();
-               return $user;
-            }
-            else
-            {
-                throw new siteException('Произошла ошибка номер 666. Обратитесь к админестратору.');
-            }
+         throw new siteException($e->getMessage());
       }
    }
    

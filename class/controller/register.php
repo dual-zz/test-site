@@ -16,15 +16,11 @@ class Register_Controller {
       {
          $model = new Register_Model;
          $view  = new Register_View;
+         $data;
          
          $data['online'] = $model->auth_check();
 
-         if (!$model->cookcheck())
-         {
-            $data['error'] = '<h2>Для регистрации включите cookies в вашем браузере.</h2>';
-            $view->print_reg($data);
-         }
-         else if ($data['online'] == TRUE)
+         if ($data['online'] == TRUE)
          {
             header('Location: ./news');
          }

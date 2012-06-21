@@ -1,13 +1,13 @@
 <?php
 
-require_once 'class/lib/Twig.php';
+require_once 'class/view/site.php';
 
 /**
  * Register view
  */
-class Register_View extends Twig_Config{
+class Register_View extends Site_View {
    
-   private $twig;
+   protected $twig;
    
    function __construct()
    {
@@ -20,4 +20,5 @@ class Register_View extends Twig_Config{
       echo $this->twig->render('register.htm', $data);
    }
 }
+
 ?>

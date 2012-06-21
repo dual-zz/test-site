@@ -5,7 +5,7 @@ require_once './class/model/site.php';
 /**
  * Login model
  */
-class Login_Model extends site {
+class Login_Model extends Site_Model {
    
    public $do_auth;
    public $user;
@@ -29,7 +29,7 @@ class Login_Model extends site {
       
       try
       {
-         $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,$PDO_UTF8);
+         $DBH = new PDO(PDO_CONNECT_HOST,PDO_CONNECT_USER,PDO_CONNECT_PASS,eval(PDO_UTF));
          $STH = $DBH->prepare("SELECT * FROM `user` WHERE login = :login");
          $STH->bindValue(':login',$this->login);
          $STH->execute();
@@ -74,7 +74,7 @@ class Login_Model extends site {
                      $STH2->bindValue(':id',$this->user['id']);
                      $STH2->bindValue(':hash',$hash);
                      $STH2->execute();
-                     SQL_Error($DBH);
+                     SQL_Error($STH2);
                   }
                   else if ($STH1->rowCount() == 1)
                   {

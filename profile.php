@@ -1,7 +1,7 @@
 <?php
 include("./class/controller/profile.php");
    
-$profile = new prof_con;
+$profile = new Profile_Controller;
 
 $profile->run();
 ?>

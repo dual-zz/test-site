@@ -1,13 +1,13 @@
 <?php
 
-require_once 'class/lib/Twig.php';
+require_once 'class/view/site.php';
 
 /**
  * Login view
  */
-class Login_View extends Twig_Config{
+class Login_View extends Site_View {
    
-   private $twig;
+   protected $twig;
    
    function __construct()
    {

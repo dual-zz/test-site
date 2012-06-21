@@ -1,23 +1,23 @@
 <?php
 
-require_once 'class/lib/twig.php';
+require_once 'class/view/site.php';
 
 /**
  * News view
  */
-class News_View extends Twig_Config {
+class News_View extends Site_View {
 	
-   private  $twig;
+   protected  $twig;
    
 	function __construct()
 	{
       $this->twig = $this->Auto_Twig();
 	}
    
-   public function print_news($user)
+   public function print_news($data)
    {
-      $user['title'] = 'News';
-      echo $this->twig->render('news.htm', $user);
+      $data['title'] = 'News';
+      echo $this->twig->render('news.htm', $data);
    }
 }
 ?>

@@ -1,0 +1,31 @@
+{% extends 'site.htm' %}
+
+{% block content%}
+<!-- Profile block -->
+<div id = "profile">
+	<table>
+		<tr>
+			<td>
+				<img src="{{ user_info.avatar }}" width="200px" style="padding: 10px 20px;">
+			</td>
+			<td>
+				<p><b>Имя: </b>{{ user_info.name }}</p>
+				<p><b>Город: </b>{{ user_info.city }}</p>
+				<p><b>Возраст: </b>{{ user_info.age }}</p>
+				<p><b>Уровень: </b>{{ user_info.lvl }}</p>
+				<p><b>Репутация: </b>{{ user_info.rep }}</p>
+			</td>
+		</tr>
+	</table>
+	<div style="padding: 2px 20px;">
+		<p><b>Награды: </b> - {{ user_info.Awards }}</p>
+		<p><b>О себе: </b>{{ user_info.about }}</p>
+	</div>
+	{% if can_edit == TRUE %}
+		<br />
+		<br />
+		<a href="{{ edit_link }}">Изменить</a>
+	{% endif %}
+	
+</div>
+{% endblock content%}
