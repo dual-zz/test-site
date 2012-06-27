@@ -1,75 +1,92 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-   <meta charset="utf-8" />
-   <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-   <title>{{ title }} - Ultima Thule</title>
-   <meta name="keywords" content="" />
-   <meta name="description" content="" />
-   <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen, projection" />
-</head>
-<body>
-<div id="wrapper">
-   <section id="middle">      
-      <div id="container">
-         <header id="header">
-         	{% block head %}
-         	{% if online == true %}
-         	<br />
-			Здравствуйте: {{ user.login }}
-			<table width="30%">
-			   <tr>
-			      <td>
-			         <a href=".">Новости</a>
-			      </td>
-			      <td>
-			         <a href="./profile">Профиль</a>
-			      </td>
-			     <td>
-			        <a href="./logout">Выход</a>
-			     </td>
-			   </tr>
-			</table>
-         	{% else %}
-         	<br />
-			<table width="40%">
-			   <tr>
-			      <td>
-			         <a href=".">Новости</a>
-			      </td>
-			      <td>
-			      	<a href="./register">Регистрация</a>
-			      </td>
-			      <td>
-			         <a href="./login">Вход</a>
-			      </td>
-			   </tr>
-			</table>
-			{% endif %}
-         	{% endblock head %}
-         </header>
-         <div id="content">
-         	{% block content %}
-         	{% endblock content %}
-         </div><!-- #content-->
-
-      </div><!-- #container-->
-
-      <aside id="sideLeft">
-         апавомсикуерми
-      </aside><!-- #sideLeft -->
-
-      <aside id="sideRight">
-         апавомсикуерми
-      </aside><!-- #sideRight -->
-
-      <footer id="footer">
-         Sindikat (с)
-      </footer><!-- #footer -->
-
-   </section><!-- #middle-->
-
-</div><!-- #wrapper -->
-
-</body>
+   <head>
+      <meta charset="utf-8" />
+      <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+      <title>{{ title }} - Ultima Thule</title>
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen, projection" />
+   </head>
+   <body>
+      <div id="wrapper">
+         <section id="middle">
+            <div id="container">
+               <header id="header">
+                  <button onclick="getCustomerInfo()">
+                     ЖМИ
+                  </button>
+                  {% block head %}
+                  {% if online == true %}
+                  <br />
+                  Здравствуйте: <div id="login">{{ user.login }}</div>
+                  <table width="30%">
+                     <tr>
+                        <td><a href=".">Новости</a></td>
+                        <td><a href="./profile">Профиль</a></td>
+                        <td><a href="./logout">Выход</a></td>
+                     </tr>
+                  </table>
+                  {% else %}
+                  <br />
+                  <table width="40%">
+                     <tr>
+                        <td><a href=".">Новости</a></td>
+                        <td><a href="./register">Регистрация</a></td>
+                        <td><a href="./login">Вход</a></td>
+                     </tr>
+                  </table>
+                  {% endif %}
+                  {% endblock head %}
+               </header>
+               <div id="content">
+                  {% block content %}
+                  {% endblock content %}
+               </div><!-- #content-->
+            </div><!-- #container-->
+            <aside id="sideLeft">
+            	
+            	{% if online == true %}
+            	<script type="text/javascript" src="./js/jquery.js"></script>
+            	<script language="JavaScript" type="text/javascript" src="./js/temp.js"></script>
+               <div style="padding: 15px; padding-top: 30px;">
+                  <h3>Php Ajax Chat</h3>
+                  <!-- Вот в этих 2-х div'ах будут идти наши сообщения из чата -->
+                  <div class="chat r4">
+                     <div id="chat_area">
+                        <!-- Сюда мы будем добавлять новые сообщения -->
+                     </div>
+                  </div>
+                  <form id="pac_form" action="">
+                     <!-- Наша форма с именем, сообщением и кнопкой для отправки -->
+                     <table style="width: 100%;">
+                        <tr>
+                           <td>Сообщение:</td>
+                           <td></td>
+                        </tr>
+                        <tr>
+                           <!-- Поле ввода сообщения -->
+                           <td style="width: 80%;">
+                           	<input type="text" id="pac_text" class="r4" value="">
+                           </td>
+                           <!-- Кнопка "Отправить" -->
+                           <td>
+                           	<input type="submit" value="Отправить">
+                           </td>
+                        </tr>
+                     </table>
+                  </form>
+               </div>
+               {% endif %}
+               
+            </aside><!-- #sideLeft -->
+            <aside id="sideRight">
+               апавомсикуерми
+            </aside><!-- #sideRight -->
+            <footer id="footer">
+               Sindikat (с)
+            </footer><!-- #footer -->
+         </section><!-- #middle-->
+      </div><!-- #wrapper -->
+   </body>
 </html>
